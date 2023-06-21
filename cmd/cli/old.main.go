@@ -160,7 +160,9 @@ func (cli *NymCLI) ConnectOrStartNymClient(uri string) error {
     if err != nil {
         return fmt.Errorf("failed to create log file: %w", err)
     }
-
+    
+    // This part does not work and does not launch nym-client in background
+    // 
     cmd := exec.Command("./nym-client", "run", "--id", "nymstr-cli")
     cmd.Dir = "." // this is the directory in which the command will be run
     cmd.Stdout = logFile
@@ -210,7 +212,7 @@ func readContacts() []string {
 }
 
 func main() {
-    uri := "ws://localhost:1977"
+    uri := "socks5://localhost:1080"
     cli := New(uri)
     cli.Run()
 }
